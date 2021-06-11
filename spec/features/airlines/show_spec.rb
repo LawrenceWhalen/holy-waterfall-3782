@@ -11,7 +11,7 @@ RSpec.describe 'flights index' do
     @passenger_3 = Passenger.create!(name: 'Judice', age: 67)
     @passenger_4 = Passenger.create!(name: 'Wanda', age: 12)
     FlightPassenger.create!(flight: @flight_1, passenger: @passenger_1)
-    FlightPassenger.create!(flight: @flight_2, passenger: @passenger_1)
+    FlightPassenger.create!(flight: @flight_2, passenger: @passenger_2)
     FlightPassenger.create!(flight: @flight_3, passenger: @passenger_3)
   end
 
