@@ -14,9 +14,9 @@ RSpec.describe 'removing a passenger from a flight' do
     FlightPassenger.create!(flight: @flight_1, passenger: @passenger_1)
     FlightPassenger.create!(flight: @flight_1, passenger: @passenger_4)
     FlightPassenger.create!(flight: @flight_2, passenger: @passenger_2)
+    FlightPassenger.create!(flight: @flight_3, passenger: @passenger_1)
     FlightPassenger.create!(flight: @flight_3, passenger: @passenger_3)
     FlightPassenger.create!(flight: @flight_3, passenger: @passenger_4)
-    FlightPassenger.create!(flight: @flight_3, passenger: @passenger_1)
 
     visit '/flights'
   end
@@ -30,6 +30,23 @@ RSpec.describe 'removing a passenger from a flight' do
     end
     within("##{@flight_3.id}") do
       expect(page).to have_button('Remove From Flight', count: 3)
+    end
+  end
+
+  it 'clicking Remove from Flight removes passenger from flight' do
+    within("##{@flight_3.id}") do
+      first(:button, 'Remove From Flight').click
+    end
+
+      expect(page).to have_current_path('/flights')
+      within("##{@flight_3.id}") do
+        expect(page).to have_button('Remove From Flight', count: 2)
+      end
+      within("##{@flight_3.id}") do
+        expect(page).to_not have_content(@passenger_1.name)
+        expect(page).to have_content(@passenger_3.name)
+        expect(page).to have_content(@passenger_4.name)
+      end
     end
   end
 end
