@@ -45,5 +45,13 @@ RSpec.describe 'flights index' do
 
       expect(page).to_not have_content(@passenger_4.name)
     end
+    it 'is sorted by number of flights' do
+      FlightPassenger.create!(flight: @flight_1, passenger: @passenger_3)
+      FlightPassenger.create!(flight: @flight_2, passenger: @passenger_2)
+      FlightPassenger.create!(flight: @flight_2, passenger: @passenger_3)
+
+      expect(@passenger_3.name).to appear_before(@passenger_2.name)
+      expect(@passenger_2.name).to appear_before(@passenger_1.name)
+    end
   end
 end
