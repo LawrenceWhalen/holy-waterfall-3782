@@ -54,5 +54,13 @@ RSpec.describe 'flights index' do
       expect(@passenger_3.name).to appear_before(@passenger_2.name)
       expect(@passenger_2.name).to appear_before(@passenger_1.name)
     end
+    it 'allows for multiple passengers with the same name' do
+      @passenger_5 = Passenger.create!(name: 'Alice', age: 57)
+      FlightPassenger.create!(flight: @flight_2, passenger: @passenger_5)
+      visit "/airlines/#{@airline_1.id}"
+
+      expect(page).to have_content(@passenger_1.name)
+      expect(page).to have_content(@passenger_5.name)
+    end
   end
 end
