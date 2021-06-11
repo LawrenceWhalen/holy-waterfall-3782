@@ -38,15 +38,17 @@ RSpec.describe 'removing a passenger from a flight' do
       first(:button, 'Remove From Flight').click
     end
 
-      expect(page).to have_current_path('/flights')
-      within("##{@flight_3.id}") do
-        expect(page).to have_button('Remove From Flight', count: 2)
-      end
-      within("##{@flight_3.id}") do
-        expect(page).to_not have_content(@passenger_1.name)
-        expect(page).to have_content(@passenger_3.name)
-        expect(page).to have_content(@passenger_4.name)
-      end
+    expect(page).to have_current_path('/flights')
+    within("##{@flight_3.id}") do
+      expect(page).to have_button('Remove From Flight', count: 2)
+    end
+    within("##{@flight_3.id}") do
+      expect(page).to_not have_content(@passenger_1.name)
+      expect(page).to have_content(@passenger_3.name)
+      expect(page).to have_content(@passenger_4.name)
+    end
+    within("##{@flight_1.id}") do
+      expect(page).to have_content(@passenger_1.name)
     end
   end
 end
