@@ -49,6 +49,7 @@ RSpec.describe 'flights index' do
       FlightPassenger.create!(flight: @flight_1, passenger: @passenger_3)
       FlightPassenger.create!(flight: @flight_2, passenger: @passenger_2)
       FlightPassenger.create!(flight: @flight_2, passenger: @passenger_3)
+      visit "/airlines/#{@airline_1.id}"
 
       expect(@passenger_3.name).to appear_before(@passenger_2.name)
       expect(@passenger_2.name).to appear_before(@passenger_1.name)
